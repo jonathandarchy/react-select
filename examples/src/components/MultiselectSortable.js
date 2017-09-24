@@ -1,7 +1,5 @@
 import React from 'react';
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
+import Select, {Value} from 'react-select';
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 const FLAVOURS = [
@@ -13,90 +11,38 @@ const FLAVOURS = [
 	{ label: 'Peppermint', value: 'peppermint' },
 ];
 
+const SortableValue = SortableElement(Value);
+const SortableSelect = SortableContainer(Select);
 
-const MultiSelectSortableField = createClass({
-	displayName: 'MultiSelectSortableField',
-	propTypes: {
-		label: PropTypes.string,
-	},
-	getInitialState () {
-		return {
-			disabled: false,
-			crazy: false,
-			stayOpen: false,
-			value: [],
-		};
-	},
-	handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-	toggleCheckbox (e) {
-		this.setState({
-			[e.target.name]: e.target.checked,
-		});
-	},
-	render () {
-		const { disabled, stayOpen, value } = this.state;
+class MultiSelectSortableField extends React.Component{
+	constructor(){
+		super();
+		this.state = {value: []};}
+	handleSelectChange(value){
+		this.setState({ value });}
+  onSortEnd({oldIndex, newIndex}){
+    this.setState({
+      value: arrayMove(this.state.value, oldIndex, newIndex),
+    });
+  };
+	render(){
+		const {value} = this.state;
 		return (
 			<div className="section">
 				<h3 className="section-heading">{this.props.label}</h3>
-
-        <SortableComponent />
-
-				<Select
-					closeOnSelect={!stayOpen}
-					disabled={disabled}
+				<SortableSelect
 					multi
-					onChange={this.handleSelectChange}
+					onChange={(value) => this.handleSelectChange(value)}
 					options={FLAVOURS}
 					placeholder="Select your favourite(s)"
-					simpleValue
 					value={value}
+					valueComponent={SortableValue}
+					onSortEnd={(sortState) => this.onSortEnd(sortState)}
 				/>
-
-				<div className="checkbox-list">
-					<label className="checkbox">
-						<input type="checkbox" className="checkbox-control" name="disabled" checked={disabled} onChange={this.toggleCheckbox} />
-						<span className="checkbox-label">Disable the control</span>
-					</label>
-					<label className="checkbox">
-						<input type="checkbox" className="checkbox-control" name="stayOpen" checked={stayOpen} onChange={this.toggleCheckbox}/>
-						<span className="checkbox-label">Stay open when an Option is selected</span>
-					</label>
-				</div>
 			</div>
 		);
 	}
-});
+}
+MultiSelectSortableField.displayName = 'MultiSelectSortableField';
 
 module.exports = MultiSelectSortableField;
-
-const SortableItem = SortableElement(({value}) => <li>{value}</li>);
-
-const SortableList = SortableContainer(({items}) => {
-  return (
-    <ul>
-      {items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value} />
-      ))}
-    </ul>
-  );
-});
-
-class SortableComponent extends React.Component {
-  constructor(){
-    super();
-    this.state = {
-      items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'],
-    };
-  }
-  onSortEnd({oldIndex, newIndex}){
-    this.setState({
-      items: arrayMove(this.state.items, oldIndex, newIndex),
-    });
-  };
-  render() {
-    return <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />;
-  }
-}
