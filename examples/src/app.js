@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Select from 'react-select';
 import './example.less';
 
 import Creatable from './components/Creatable';
@@ -11,6 +10,7 @@ import GithubUsers from './components/GithubUsers';
 import CustomComponents from './components/CustomComponents';
 import CustomRender from './components/CustomRender';
 import Multiselect from './components/Multiselect';
+import MultiselectSortable from './components/MultiselectSortable';
 import NumericSelect from './components/NumericSelect';
 import BooleanSelect from './components/BooleanSelect';
 import Virtualized from './components/Virtualized';
@@ -20,6 +20,7 @@ ReactDOM.render(
 	<div>
 		<States label="States" searchable />
 		<Multiselect label="Multiselect" />
+		<MultiselectSortable label="Multiselect (sortable)" />
 		<Virtualized label="Virtualized" />
 		<Contributors label="Contributors (Async)" />
 		<GithubUsers label="Github users (Async with fetch.js)" />
