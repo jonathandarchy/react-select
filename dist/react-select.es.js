@@ -114,7 +114,6 @@ function clearRenderer() {
 	});
 }
 
-var babelHelpers = {};
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -344,28 +343,6 @@ var possibleConstructorReturn = function (self, call) {
 
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-babelHelpers;
 
 var Option = function (_React$Component) {
 	inherits(Option, _React$Component);
@@ -1393,7 +1370,8 @@ var Select$1 = function (_React$Component) {
 							key: 'value-' + i + '-' + value[_this5.props.valueKey],
 							onClick: onClick,
 							onRemove: _this5.removeValue,
-							value: value
+							value: value,
+							index: i
 						},
 						renderLabel(value, i),
 						React.createElement(
