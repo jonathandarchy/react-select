@@ -17,7 +17,7 @@ const SortableSelect = SortableContainer(Select);
 class MultiSelectSortableField extends React.Component{
 	constructor(){
 		super();
-		this.state = {value: []};}
+		this.state = {value: ['chocolate', 'vanilla', 'caramel']};}
 	handleSelectChange(value){
 		this.setState({ value });}
   onSortEnd({oldIndex, newIndex}){
@@ -38,6 +38,10 @@ class MultiSelectSortableField extends React.Component{
 					value={value}
 					valueComponent={SortableValue}
 					onSortEnd={(sortState) => this.onSortEnd(sortState)}
+
+          axis={'x'}
+          lockAxis={'x'}
+          lockToContainerEdges
 				/>
 			</div>
 		);
