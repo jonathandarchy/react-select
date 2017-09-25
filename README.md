@@ -9,6 +9,11 @@ React-Select
 
 A Select control built with and for [React](http://facebook.github.io/react/index.html). Initially built for use in [KeystoneJS](http://www.keystonejs.com).
 
+## PWhipp Fork
+
+Adds an index property to the Value Component allowing use with [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc).
+
+Adds a "multi select sortable" example to demonstrate use of the react-sortable-hoc.
 
 ## New version 1.0.0-rc
 
